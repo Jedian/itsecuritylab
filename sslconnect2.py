@@ -9,6 +9,13 @@ import sys
 from Queue import Queue
 from multiprocessing import Process, RawValue, Lock
 
+#TODO:
+# * Figure out a way to keep the number of threads increasing until it reaches
+#   the server limit
+#
+# * Fill the code with clarification comments
+# 
+
 resource.setrlimit(resource.RLIMIT_NOFILE, (65536, 65536))
 
 class Counter(object):
