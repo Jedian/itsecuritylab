@@ -88,10 +88,3 @@ while True:
     time.sleep(1)
     print("Total the server supported: " + str(co.value()))
     print("Total the server didnt supported: " + str(start_val - co.value()))
-    #print('partiu mata todo mundo')
-    #for t in threads:
-    #    t.stop()
-    #t = []
-
-#for t in threads:
-#    t.join()
