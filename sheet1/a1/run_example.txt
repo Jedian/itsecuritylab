@@ -1,0 +1,108 @@
+Scanning host "10.0.23.15"...
+PORT	SERVICE
+22	SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2
+210	ProFTPd
+777	mini_httpd/1.19 19dec2003
+1408	mini_httpd/1.19 19dec2003
+2100	Pure-FTPd
+2121	PyFTPd
+2589	Apache/2.4.7 (Ubuntu)
+3890	micro_httpd
+4739	mini_httpd/1.19 19dec2003
+5533	webfs/1.21
+6371	lighttpd/1.4.33
+6966	micro_httpd
+8223	Apache/2.4.7 (Ubuntu)
+8486	lighttpd/1.4.33
+9813	Apache/2.4.7 (Ubuntu)
+10388	lighttpd/1.4.33
+10423	Apache/2.4.7 (Ubuntu)
+11901	mini_httpd/1.19 19dec2003
+12080	webfs/1.21
+12346	micro_httpd
+13967	lighttpd/1.4.33
+14673	mini_httpd/1.19 19dec2003
+15047	micro_httpd
+15302	Apache/2.4.7 (Ubuntu)
+16663	webfs/1.21
+17773	Apache/2.4.7 (Ubuntu)
+18254	mini_httpd/1.19 19dec2003
+18769	webfs/1.21
+18824	Apache/2.4.7 (Ubuntu)
+18948	micro_httpd
+20545	Apache/2.4.7 (Ubuntu)
+20863	lighttpd/1.4.33
+21000	vsFTPd
+21241	lighttpd/1.4.33
+22012	mini_httpd/1.19 19dec2003
+22461	lighttpd/1.4.33
+23255	lighttpd/1.4.33
+23439	Apache/2.4.7 (Ubuntu)
+23955	Apache/2.4.7 (Ubuntu)
+24542	micro_httpd
+24584	lighttpd/1.4.33
+25797	lighttpd/1.4.33
+26378	lighttpd/1.4.33
+27890	webfs/1.21
+28072	micro_httpd
+28975	mini_httpd/1.19 19dec2003
+29058	micro_httpd
+31331	mini_httpd/1.19 19dec2003
+31711	Apache/2.4.7 (Ubuntu)
+33210	lighttpd/1.4.33
+33922	lighttpd/1.4.33
+36424	lighttpd/1.4.33
+36798	Apache/2.4.7 (Ubuntu)
+37707	Apache/2.4.7 (Ubuntu)
+38090	webfs/1.21
+38591	lighttpd/1.4.33
+38603	micro_httpd
+39207	Apache/2.4.7 (Ubuntu)
+40074	Apache/2.4.7 (Ubuntu)
+40110	webfs/1.21
+40126	lighttpd/1.4.33
+40305	mini_httpd/1.19 19dec2003
+40642	Apache/2.4.7 (Ubuntu)
+40671	Apache/2.4.7 (Ubuntu)
+41347	micro_httpd
+42037	mini_httpd/1.19 19dec2003
+42715	lighttpd/1.4.33
+44113	mini_httpd/1.19 19dec2003
+46382	micro_httpd
+47963	webfs/1.21
+48870	webfs/1.21
+48915	mini_httpd/1.19 19dec2003
+49241	micro_httpd
+50187	webfs/1.21
+50318	webfs/1.21
+50356	webfs/1.21
+50525	mini_httpd/1.19 19dec2003
+50775	webfs/1.21
+50844	mini_httpd/1.19 19dec2003
+51250	micro_httpd
+51359	micro_httpd
+52028	mini_httpd/1.19 19dec2003
+52347	webfs/1.21
+52381	Apache/2.4.7 (Ubuntu)
+52867	lighttpd/1.4.33
+53559	webfs/1.21
+53968	webfs/1.21
+53999	micro_httpd
+55159	lighttpd/1.4.33
+56617	mini_httpd/1.19 19dec2003
+56662	Apache/2.4.7 (Ubuntu)
+56900	lighttpd/1.4.33
+57311	micro_httpd
+58689	micro_httpd
+59480	webfs/1.21
+60284	webfs/1.21
+60346	webfs/1.21
+60835	webfs/1.21
+61210	mini_httpd/1.19 19dec2003
+61299	mini_httpd/1.19 19dec2003
+61556	micro_httpd
+64065	Apache/2.4.7 (Ubuntu)
+64220	micro_httpd
+64442	micro_httpd
+64947	mini_httpd/1.19 19dec2003
+--------------------------------------------
