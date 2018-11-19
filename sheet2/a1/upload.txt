@@ -1,0 +1,16 @@
+Upload
+This page shows a button for browsing and selection local files and a button
+for uploading. Some attacks using upload features include denial of service
+after filling the entire disk of the web application server machine. But as
+there is validation for file size, we should upload lots of files with some
+script.
+
+Another possible exploitation is to upload malicious code and run it on the
+server-side of the web application. As the server only automatically runs files
+with php extension, we have to bypass the html form. I could do it on the
+browser (firefox), setting the raw headers of my POST request, so the
+'Content-type' flag was a jpeg image, but the file uploaded was php code. Then,
+I could run it by accessing it on
+"http://10.0.23.21/hackable/uploads/filename.php". As the server trusts it's
+own code, it's very dangerous because the script has basically no limits on the
+application context, at least.

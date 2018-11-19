@@ -1,0 +1,4 @@
+-> hidden field do export transactions
+-> stored xss no name, last_name da transação <script>alert('lool');</script>
+-> stored xss no campo mensagem '><script>alert('lool');</script>
+

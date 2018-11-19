@@ -1,0 +1,25 @@
+Stored XSS
+In this page, it is possible to abuse the fact that there is almost no
+validation on what you can write on the field "name" of the form. So HTML (and
+possibly, JavaScript) strings in the content of the field get interpreted as
+well. There is indeed a replace for strings with "<script>" inside them, but we
+can workaround this by using "<ScRiPt>", or by adding useless tags like "<script something="">"
+
+Another small inconvenient is that the max length allowed for characters in
+that field is limited by 10, but we can easily workaround that with the browser
+inspector, setting it manually to 100 or over.
+
+A funny proof of concept was, after set the max length with the inspector,
+to write this on the "name" field. This inserts a big image with an annoying
+effect that, when you move you mouse over it, a popup is shown.
+
+<img src="https://bit.ly/2DBQy1V" onmouseover="alert('H3Y TH3R3');">
+Or even:
+<object type="text/html" width="600" height="900" data="http://www.news.de/index.html"></object>
+Or, more simply put:
+<ScRiPt>alert('H3y th3r3');</script>
+
+This can be dangerous because the script inserted on the page runs on the
+client side on every browser that triggers it, so any info loaded at the moment
+on the page can be gathered (for example, email, login, session tokens or
+cookies) and be sent to an attacker.

