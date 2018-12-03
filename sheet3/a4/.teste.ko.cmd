@@ -1,0 +1,1 @@
+cmd_/home/jedian/Documents/itsecuritylab/sheet3/a4/teste.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/jedian/Documents/itsecuritylab/sheet3/a4/teste.ko /home/jedian/Documents/itsecuritylab/sheet3/a4/teste.o /home/jedian/Documents/itsecuritylab/sheet3/a4/teste.mod.o

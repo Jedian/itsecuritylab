@@ -1,0 +1,14 @@
+--- orig/usr/local/src/ping.pyx	2018-11-28 13:02:54.702087649 +0100
++++ new/usr/local/src/ping.pyx	2018-11-28 13:16:24.227089435 +0100
+@@ -98,7 +98,11 @@
+ def verbose_ping(dest_addr, timeout, count, logfile, logmsg):
+     fd = 0
+     if (logfile != ""): 
++        oldeuid = os.geteuid()
++        os.seteuid(os.getuid())
+         fd = open(logfile, "a")
++        os.seteuid(oldeuid)
++
+     log_it(fd, logmsg); log_it(fd, "\n")
+     x = 0
+     while (x != count):

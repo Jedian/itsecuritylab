@@ -1,0 +1,3 @@
+/home/jedian/Documents/itsecuritylab/sheet3/a2/readme.txt
+/dev/urandom
+anon_inode:[eventfd]
