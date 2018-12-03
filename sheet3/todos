@@ -1,11 +1,8 @@
-a3 remover os binds, colocar arg pra destino?
-a3 install.sh
-a1 revisar
-a2 revisar
-a2 install.sh ???
-a2 makefile
+a3 colocar arg pra destino? talvez no install.sh
+a3 install.sh (ou daemon ou systemctl)
 a3 revisar
-a4 ls, ps, netstat
+a4 ps usar task->comm pra ver nome
+a4 netstat
 a4 revisar
 a4 makefile
 a4 install.sh
