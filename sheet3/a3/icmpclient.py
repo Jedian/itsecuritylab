@@ -5,10 +5,6 @@ class Icmpclient:
         self.id = ID
         self.dest = dest
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("icmp"))
-        if dest == "192.168.1.164":
-            self.socket.bind(('10.0.24.5', 1))
-        else:
-            self.socket.bind(("192.168.1.164", 1))
 
     def checksum(self, source_string):
         sum = 0

