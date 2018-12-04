@@ -16,7 +16,8 @@ Edit the file const.py with the address of the attacker host and the password.
 
 Installing:
 
-Execute the script install.sh with root privileges.
+Copy the directory with the scripts to the target machine and execute the
+script install.sh with root privileges.
 
 Running:
 
