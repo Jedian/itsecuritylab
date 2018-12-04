@@ -1,12 +1,14 @@
 import os, sys, socket, struct, select, time, string, argparse
 
 class Icmpclient:
-    def __init__(self, host, ID=None, dest=None):
+    def __init__(self, ID=None, dest=None):
         self.id = ID
-        self.host = host
         self.dest = dest
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_RAW, socket.getprotobyname("icmp"))
-        self.socket.bind((host, 1))
+        if dest == "192.168.1.164":
+            self.socket.bind(('10.0.24.5', 1))
+        else:
+            self.socket.bind(("192.168.1.164", 1))
 
     def checksum(self, source_string):
         sum = 0
@@ -43,12 +45,11 @@ class Icmpclient:
             if stat[0] == []:
                 timeleft = timeleft - howlong
                 continue
-                #return "nada veio"
+
             pkg, addr = self.socket.recvfrom(10240)
             header = pkg[20:28]
             data = pkg[28:]
             type, code, checksum, packetID, sequence = struct.unpack("bbHHh", header)
-
 
             if "Login" in data:
                 self.dest = addr[0]
@@ -57,7 +58,6 @@ class Icmpclient:
             else:
                 if self.id != None:
                     return data
-
 
             timeleft = timeleft - howlong
 

