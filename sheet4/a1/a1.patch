@@ -1,0 +1,48 @@
+diff -ruN orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DbgAnal.smali new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DbgAnal.smali
+--- orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DbgAnal.smali	2018-12-20 00:04:52.780745356 +0100
++++ new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DbgAnal.smali	2018-12-20 00:03:36.581617310 +0100
+@@ -69,7 +69,7 @@
+     if-nez p0, :cond_1
+ 
+     :cond_0
+-    const/4 v2, 0x1
++    const/4 v2, 0x0
+ 
+     :cond_1
+     return v2
+diff -ruN orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DyAnal.smali new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DyAnal.smali
+--- orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DyAnal.smali	2018-12-20 00:04:52.780745356 +0100
++++ new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/DyAnal.smali	2018-12-20 00:03:36.581617310 +0100
+@@ -220,7 +220,7 @@
+     :goto_1
+     invoke-virtual {p0}, Lde/fau/i1/aka/h4ckpr0/anal/DyAnal;->aaa()V
+ 
+-    xor-int/lit8 p0, v4, 0x1
++    const/4 p0, 0x0
+ 
+     return p0
+ .end method
+diff -ruN orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/EmAnal.smali new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/EmAnal.smali
+--- orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/EmAnal.smali	2018-12-20 00:04:52.780745356 +0100
++++ new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/EmAnal.smali	2018-12-20 00:03:36.581617310 +0100
+@@ -28,7 +28,7 @@
+     .line 25
+     sget-object p0, Landroid/os/Build;->FINGERPRINT:Ljava/lang/String;
+ 
+-    const-string v0, "sdk"
++    const-string v0, "donkeykongcountry3"
+ 
+     invoke-virtual {p0, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+ 
+diff -ruN orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/InAnal.smali new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/InAnal.smali
+--- orig/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/InAnal.smali	2018-12-20 00:04:52.780745356 +0100
++++ new/h4ckPr0/smali/de/fau/i1/aka/h4ckpr0/anal/InAnal.smali	2018-12-20 00:03:36.581617310 +0100
+@@ -310,6 +310,8 @@
+ 
+     xor-int/lit8 p0, p0, 0x1
+ 
++    const/4 p0, 0x0
++
+     return p0
+ .end method
+ 
