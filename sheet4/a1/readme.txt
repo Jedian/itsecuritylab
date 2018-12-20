@@ -20,11 +20,9 @@ DyAnal.class: It gets four system's properties that inform whether the secure
 usb debugging is available/active or not. This way, it is able to confirm if it
 is inside an analysis environment.
 
+The repacked app with all the tests passed is on this folder with "signed.apk" as name.
+You can see what was changed more easily by looking at the patchfile.
 
-I had a lot of problems trying to repack this app :(
-(I tried even without changing anything, even just
-    $ apktool d h4ckpro.apk; 
-    $ ./apkBuildersh.sec h4ckpro;
-would fail :( )
-So I tried to create a patch, showing which and how to modify the routines so
-they won't detect anything at all. It is at a1.patch.
+(In the patchfile there could still be the weird error I mentioned in the
+ forum, that I could solve by copying an "attr" line from
+ h4ckPr0/res/values/public.xml and moving it to the start of the file)
